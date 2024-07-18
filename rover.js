@@ -47,6 +47,7 @@ class Rover {
         // }
         //console.log(stat)
         //console.log(rov)
+        
           rov.results.push(stat);
       } 
         else{
