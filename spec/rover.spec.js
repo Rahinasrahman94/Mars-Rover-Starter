@@ -83,10 +83,13 @@ describe("Rover class", function () {
   //test 13
   it("A MOVE command will update the rover’s position with the position value in the command.", function () {
     // let commands = [new Command('MODE_CHANGE', 'LOW_POWER'), new Command('STATUS_CHECK')];
-    let message = new Message("Test message  commands", new Command("MOVE"));
-    let rover = new Rover(98382); // Passes 98382 as the rover's position.
+    let rover = new Rover(98382);
+    let message = new Message("Test message  commands", [
+      new Command("MOVE", 1000),
+      new Command("STATUS_CHECK"),
+    ]);
     let response = rover.receiveMessage(message);
-
-    expect(rover.position).toBe(98382);
+    console.log(response.results);
+    expect(rover.position).toBe(1000);
   });
 });

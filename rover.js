@@ -31,20 +31,24 @@ class Rover {
             generatorWatts: 110,
           },
         };
-        //  console.log(stat.roverStatus);
+        // console.log(stat.roverStatus);
         rov.results.push(stat);
-      } else {
+      } else if (
+        message.commands[i].commandType === "MOVE" &&
+        message.commands[i].value
+      ) {
         if (this.mode === "LOW_POWER") {
           let mov = {
             completed: false,
           };
           rov.results.push(mov);
         } else {
+          // console.log(this.position);
+          this.position = message.commands[i].value;
+          // console.log("from mov", this.position);
           let mov = {
             completed: true,
           };
-          this.position = message.commands[i].value;
-          // console.log(message.commands[i].value);
           rov.results.push(mov);
         }
       }
@@ -52,13 +56,16 @@ class Rover {
     return rov;
   }
 }
+
+let rover = new Rover(98382);
 let commands = [
-  new Command("MODE_CHANGE", "LOW_POWER"),
+  //new Command("MODE_CHANGE", "LOW_POWER"),
+  new Command("STATUS_CHECK"),
+  new Command("MOVE", 12000),
   new Command("STATUS_CHECK"),
 ];
 let message = new Message("Test message with two commands", commands);
-let rover = new Rover(98382);
 let response = rover.receiveMessage(message);
 console.log(response);
-//console.log(rover.stat.roverStatus);
+
 module.exports = Rover;
