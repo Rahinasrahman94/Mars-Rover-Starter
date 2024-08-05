@@ -86,7 +86,6 @@ describe("Rover class", function () {
     let rover = new Rover(98382);
     let message = new Message("Test message  commands", [
       new Command("MOVE", 1000),
-      new Command("STATUS_CHECK"),
     ]);
     let response = rover.receiveMessage(message);
     console.log(response.results);
